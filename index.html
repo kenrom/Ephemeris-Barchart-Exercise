@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Ephemeris Bar Chart</title>
+  <style type="text/css">
+  .ephemeris-chart {
+    margin:20px auto;
+    padding:0px;
+    width:80%;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid gray;
+    background-color:#33f0ff;
+    -moz-border-radius-bottomleft:10px;
+    -webkit-border-bottom-left-radius:10px;
+    border-bottom-left-radius:10px;
+    -moz-border-radius-bottomright:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-right-radius:10px;
+    -moz-border-radius-topright:10px;
+    -webkit-border-top-right-radius:10px;
+    border-top-right-radius:10px;
+    -moz-border-radius-topleft:10px;
+    -webkit-border-top-left-radius:10px;
+    border-top-left-radius:10px;
+  }
+  .ephemeris-chart table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+  }
+  .ephemeris-chart tr:last-child td:last-child {
+    -moz-border-radius-bottomright:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-right-radius:10px;
+  }
+  .ephemeris-chart table tr:first-child td:first-child {
+    -moz-border-radius-topleft:10px;
+    -webkit-border-top-left-radius:10px;
+    border-top-left-radius:10px;
+  }
+  .ephemeris-chart table tr:first-child td:last-child {
+    -moz-border-radius-topright:10px;
+    -webkit-border-top-right-radius:10px;
+    border-top-right-radius:10px;
+  }
+  .ephemeris-chart tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:10px;
+    -webkit-border-bottom-left-radius:10px;
+    border-bottom-left-radius:10px;
+  }
+  .ephemeris-chart th {
+    padding:10px 0;
+    font-size:18px;
+    font-family:Arial;
+    font-weight:bold;
+  }
+  .ephemeris-chart td {
+    vertical-align:middle;
+    background-color:#222;
+    width:25%;
+    border:1px solid #00ccbf;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:10px 0;
+    font-size:10px;
+    font-family:Arial;
+    font-weight:normal;
+    color:#e2f0ff;
+  }
+  .ephemeris-chart tr:last-child td {
+    border-width:0px 1px 0px 0px;
+  }
+  .ephemeris-chart tr td:last-child {
+    border-width:0px 0px 1px 0px;
+  }
+  .ephemeris-chart tr:last-child td:last-child {
+    border-width:0px 0px 0px 0px;
+  }
+  .ephemeris-chart tr:first-child td {
+    background:-o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #003f7f));
+    background:-moz-linear-gradient(center top, #005fbf 5%, #003f7f 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#003f7f");
+    background: -o-linear-gradient(top, #005fbf, #003f7f);
+    background-color:#005fbf;
+    border:0px solid #ffffff;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+  }
+  .ephemeris-chart tr:first-child td:first-child {
+    border-width:0px 0px 1px 0px;
+  }
+  .ephemeris-chart tr:first-child td:last-child {
+    border-width:0px 0px 1px 1px;
+  }
+  .planet-bar {
+    padding:10px 0;
+    margin:1px 0;
+    font-weight:bold;
+    color: #000;
+  }
+  </style>
+</head>
+
+<body>
+<div class="ephemeris-chart">
+  <table>
+    <tr>
+      <th colspan="4">Ephemeris Bar Chart</th>
+    </tr>
+    <tr>
+      <td>&nbsp;0au</td>
+      <td>&nbsp;0.5au
+      </td>
+      <td>&nbsp;1au
+      </td>
+      <td>&nbsp;1.5au
+      </td>
+    </tr>
+    <tr>
+      <td id="barchart-planets" colspan="4"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;0au</td>
+      <td>&nbsp;0.5au
+      </td>
+      <td>&nbsp;1au
+      </td>
+      <td>&nbsp;1.5au
+      </td>
+    </tr>
+  </table>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript">
+  $(document).ready(function() {
+    $.getJSON('ephemeris.json', function(data) {
+      console.log("data.length = " + data.length) // number of planets
+      for (var i = 0; i < data.length; i++) {
+        var p = data[i];
+        console.log(p.name); //planet name
+        console.log(p.color); //planet color
+        console.log(p.orbit.length); //number of orbit points
+        var sum = 0; //adds distance points
+        for (var o = 0; o < p.orbit.length; o++) {
+          sum += p.orbit[o][2];
+        }
+        console.log("sum = " + sum);
+        p.average = sum / p.orbit.length; //averages the planet orbit points
+        console.log("average = " + p.average);
+        var bl = parseInt(p.average * 50)
+        $("#barchart-planets").append('<div id="' + p.name + '" class="planet-bar" style="background-color:' + p.color + '; width:' + bl + '%;"> &nbsp;' + p.name + " - " + p.average + '&nbsp;</div>')
+      }
+    })
+      .done(function() {
+        console.log("JSON loaded.");
+      })
+      .fail(function() {
+        console.log("JSON load error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+  });
+  </script>
+</body>
+</html>

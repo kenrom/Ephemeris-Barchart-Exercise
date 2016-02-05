@@ -1,0 +1,58 @@
+This is a simple exercise to look at your understanding of HTML, CSS, and Javascript.
+Included in this exercise is a data set, in JSON, for you to work with (ephemeris.json)
+
+An "Ephemeris" is a position of a body with respect to the Sun, or a set of points in an orbit.
+This data was culled from NASA's Horizon Website (http://ssd.jpl.nasa.gov/horizons.cgi)
+Usually included in an ephemeris is the the date of measurement, the right ascension (angle to the Sun), and the distance
+
+ABOUT THE DATA:
+
+The data contained within "ephemeris.json" is an array of JSON objects. 
+Each object contains data about a planet's orbit.
+On each day in the data, we have the right ascension of a planet and it's distance in Astronomical Units.
+
+There are three planets listed in the data. 
+	-Mercury
+	-Venus
+	-Earth
+
+Each data point is an array containing three values
+	-Date
+	-Right ascension 
+	-Distance from the Sun in Astronomical Units.
+
+THE GOAL:
+
+Using the data provided, we would like to know the average distance of each planet from the Sun.
+You may use any distance measurement you wish, in Kilometers, Miles, Astronomical Units, Meters...etc
+
+We would like to display the average distances of the planets from the Sun in a bar chart.
+There should be a total of three bars in the chart that would let us know how far (on average) 
+each of the planets are from the Sun.
+
+ABOUT THE EXERCISE:
+
+Using the data set provided, create an HTML page with a simple bar chart.
+It is important to show a good foundation in practical HTML, CSS, and Javascript.
+
+The structure of the web application and the style of the code will be the main consideration.
+As in all good design, clarity and simplicity of code are the most important aspects of this exercise.
+
+Graphic design is considered but not as much as functional design. 
+A simple, clean, and easy to read graph is much more important than drop shadows, gradients, textures and fancy animations.
+The graph must contain labels describing the field's presented.
+
+You must load the sample data provided using AJAX and render it using any combination of HTML, CSS, and Javascript.
+The rendering must be a bar chart (either horizontal or vertical).
+You may style the chart any way you wish. 
+
+The use of JQuery for any of part of this project is acceptable, 
+but please do not use external libraries (outside of jquery) to complete this task. 
+Again this task is set up to assess core competency using HTML, CSS, and Javascipt.
+So, external libraries defeats the purpose of the exercise. 
+
+All created files and documents should be contained under the same folder. 
+The initialization document should be labeled "index.html"
+By running "index.html" the web application should load as expected.
+
+This means that the entire web application should be self contained within a single folder.
